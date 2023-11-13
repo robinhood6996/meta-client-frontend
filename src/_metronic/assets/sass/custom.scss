@@ -1,0 +1,24 @@
+.svg-delete-icon{
+  svg{
+    width: 120px !important;
+    height: 120px !important;
+    max-height: unset !important;
+  }
+}
+.flag-lang button {
+  padding: 5px;
+  border: none;
+}
+
+.flag-lang button span span {
+  color: var(--kt-text-gray-700);
+}
+.skiptranslate{
+  display: none;
+}
+#google_translate_element{
+  display: none;
+}
+div#goog-gt-tt {
+  display: none !important;
+}
