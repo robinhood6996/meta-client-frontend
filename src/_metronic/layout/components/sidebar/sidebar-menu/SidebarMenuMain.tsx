@@ -29,13 +29,13 @@ const SidebarMenuMain = () => {
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Functions</span>
         </div>
       </div>
-      <SidebarMenuItem
+      {/* <SidebarMenuItem
         to='/categories'
         title='Categories'
         hasBullet={false}
         icon='/media/icons/duotune/general/gen025.svg'
-      />
-      <SidebarMenuItemWithSub
+      /> */}
+      {/* <SidebarMenuItemWithSub
         to='/users'
         title='Users'
         hasBullet={false}
@@ -43,15 +43,19 @@ const SidebarMenuMain = () => {
       >
         <SidebarMenuItem to='/users' title='All Users' hasBullet={true} />
         <SidebarMenuItem to='/create-user' title='Create User' hasBullet={true} />
-      </SidebarMenuItemWithSub>
+      </SidebarMenuItemWithSub> */}
       <SidebarMenuItemWithSub
-        to='/active-escorts'
-        title='Escorts'
+        to='/ads'
+        title='Ads'
         hasBullet={false}
         icon='/media/icons/duotune/general/gen022.svg'
       >
-        <SidebarMenuItem to='/active-escorts' title='Active Escorts' hasBullet={true} />
-        <SidebarMenuItem to='/inactive-escorts' title='Inactive Escorts' hasBullet={true} />
+        <SidebarMenuItem to='/active-escorts' title='Active' hasBullet={true} />
+        <SidebarMenuItem to='/inactive-escorts' title='Pending' hasBullet={true} />
+        <SidebarMenuItem to='/inactive-escorts' title='Canceled' hasBullet={true} />
+        <SidebarMenuItem to='/inactive-escorts' title='Completed' hasBullet={true} />
+        <SidebarMenuItem to='/inactive-escorts' title='Not Delivered' hasBullet={true} />
+        <SidebarMenuItem to='/inactive-escorts' title='Rejected' hasBullet={true} />
       </SidebarMenuItemWithSub>
       {/* <SidebarMenuItem
         to='/escorts'
@@ -59,7 +63,7 @@ const SidebarMenuMain = () => {
         hasBullet={false}
         icon='/media/icons/duotune/general/gen022.svg'
       /> */}
-      <SidebarMenuItemWithSub
+      {/* <SidebarMenuItemWithSub
         to='/ads'
         title='Classified Ads'
         hasBullet={false}
@@ -68,9 +72,9 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem to='/ads' title='Active Ad list' hasBullet={true} />
         <SidebarMenuItem to='/pending-ads' title='Pending list' hasBullet={true} />
         <SidebarMenuItem to='/create-ad' title='Create ad' hasBullet={true} />
-      </SidebarMenuItemWithSub>
+      </SidebarMenuItemWithSub> */}
 
-      <SidebarMenuItem
+      {/* <SidebarMenuItem
         to='/tours'
         title='Tours'
         hasBullet={false}
@@ -84,8 +88,8 @@ const SidebarMenuMain = () => {
       >
         <SidebarMenuItem to='/active-verification' title='Active' hasBullet={true} />
         <SidebarMenuItem to='/pending-verification' title='Pending' hasBullet={true} />
-      </SidebarMenuItemWithSub>
-      <SidebarMenuItemWithSub
+      </SidebarMenuItemWithSub> */}
+      {/* <SidebarMenuItemWithSub
         to='/active-escort-ads'
         title='Escort Ads'
         hasBullet={false}
@@ -94,8 +98,8 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem to='/active-escort-ads' title='Active' hasBullet={true} />
         <SidebarMenuItem to='/pending-escort-ads' title='Pending' hasBullet={true} />
         <SidebarMenuItem to='/expired-escort-ads' title='Expired' hasBullet={true} />
-      </SidebarMenuItemWithSub>
-      <SidebarMenuItemWithSub
+      </SidebarMenuItemWithSub> */}
+      {/* <SidebarMenuItemWithSub
         to='/active-escort-banner-advertisement'
         title='Escort Banner Advertisement'
         hasBullet={false}
@@ -112,15 +116,15 @@ const SidebarMenuMain = () => {
           title='Expired'
           hasBullet={true}
         />
-      </SidebarMenuItemWithSub>
+      </SidebarMenuItemWithSub> */}
 
-      <SidebarMenuItem
+      {/* <SidebarMenuItem
         to='/reviews'
         title='Reviews'
         hasBullet={false}
         icon='/media/icons/duotune/general/gen022.svg'
-      />
-      <SidebarMenuItemWithSub
+      /> */}
+      {/* <SidebarMenuItemWithSub
         to='/country'
         title='Country & City'
         hasBullet={false}
@@ -129,8 +133,8 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem to='/countries' title='Countries' hasBullet={true} />
         <SidebarMenuItem to='/cities' title='Cities' hasBullet={true} />
         <SidebarMenuItem to='/area' title='Areas' hasBullet={true} />
-      </SidebarMenuItemWithSub>
-      <SidebarMenuItemWithSub
+      </SidebarMenuItemWithSub> */}
+      {/* <SidebarMenuItemWithSub
         to='/reports'
         title='Fake Photos'
         hasBullet={false}
@@ -138,7 +142,7 @@ const SidebarMenuMain = () => {
       >
         <SidebarMenuItem to='/reports' title='Fake escort list' hasBullet={true} />
         <SidebarMenuItem to='/pending-reports' title='Pending Reports' hasBullet={true} />
-      </SidebarMenuItemWithSub>
+      </SidebarMenuItemWithSub> */}
 
       {/* <SidebarMenuItemWithSub
         to='/crafted/pages'
