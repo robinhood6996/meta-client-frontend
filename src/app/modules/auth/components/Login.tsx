@@ -2,7 +2,7 @@
 import {useEffect, useState} from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {useFormik} from 'formik'
 import {getUserByToken, login} from '../core/_requests'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
@@ -39,13 +39,14 @@ export function Login() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
   const [userLogin, {data, isLoading, isSuccess, isError, error}] = useUserLoggedInMutation()
 
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
     onSubmit: async (values, {setStatus, setSubmitting}) => {
+      console.log('submit')
       const data = {
         email: values.email,
         password: values.password,
@@ -71,7 +72,9 @@ export function Login() {
 
   useEffect(() => {
     if (!isLoading && !isError && isSuccess && data) {
-      dispatch(userLoggedIn(data))
+      // dispatch(userLoggedIn(data))
+      console.log('data', data)
+      navigate('/')
     }
   }, [data, isError, isLoading, isSuccess])
 

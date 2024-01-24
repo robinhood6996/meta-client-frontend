@@ -6,6 +6,7 @@ import {QueryClient, QueryClientProvider} from 'react-query'
 import {ReactQueryDevtools} from 'react-query/devtools'
 // Apps
 import {MetronicI18nProvider} from './_metronic/i18n/Metronici18n'
+
 /**
  * TIP: Replace this style import with rtl styles to enable rtl mode
  *

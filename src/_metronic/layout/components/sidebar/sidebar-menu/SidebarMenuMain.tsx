@@ -50,12 +50,12 @@ const SidebarMenuMain = () => {
         hasBullet={false}
         icon='/media/icons/duotune/general/gen022.svg'
       >
-        <SidebarMenuItem to='/active-escorts' title='Active' hasBullet={true} />
-        <SidebarMenuItem to='/inactive-escorts' title='Pending' hasBullet={true} />
-        <SidebarMenuItem to='/inactive-escorts' title='Canceled' hasBullet={true} />
-        <SidebarMenuItem to='/inactive-escorts' title='Completed' hasBullet={true} />
-        <SidebarMenuItem to='/inactive-escorts' title='Not Delivered' hasBullet={true} />
-        <SidebarMenuItem to='/inactive-escorts' title='Rejected' hasBullet={true} />
+        <SidebarMenuItem to='/active-ads' title='Active Ads' hasBullet={true} />
+        <SidebarMenuItem to='/pending-ads' title='Pending Ads' hasBullet={true} />
+        <SidebarMenuItem to='/canceled-ads' title='Canceled Ads' hasBullet={true} />
+        <SidebarMenuItem to='/completed-ads' title='Completed Ads' hasBullet={true} />
+        <SidebarMenuItem to='/not-delivered-ads' title='Not Delivered' hasBullet={true} />
+        <SidebarMenuItem to='/rejected-ads' title='Rejected' hasBullet={true} />
       </SidebarMenuItemWithSub>
       {/* <SidebarMenuItem
         to='/escorts'

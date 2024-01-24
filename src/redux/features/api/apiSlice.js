@@ -6,10 +6,9 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_CUSTOM_BASE_URL,
   prepareHeaders: (headers, {getState, endpoint, extra}) => {
     if (endpoint !== 'login') {
-      let auth = localStorage.getItem('adminUser')
-      let adminUser = JSON.parse(auth)
-      console.log('adminUser in apislice', adminUser?.token)
-      let storeUserToken = adminUser?.token
+      let authToken = getState()?.adminUser?.tokens?.access?.token
+      let refreshToken = getState()?.adminUser?.tokens?.refresh?.token
+      let storeUserToken = authToken
       if (storeUserToken) {
         headers.set('Authorization', `Bearer ${storeUserToken}`)
       }

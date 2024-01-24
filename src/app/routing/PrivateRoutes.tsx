@@ -9,7 +9,7 @@ import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import Categories from '../modules/Categories/Categories'
 import UserList from '../modules/Custom/Users/UserList'
-import EscortList from '../modules/Custom/Escorts/ActiveEscortsList'
+import EscortList from '../modules/Custom/Escorts/ActiveProjects'
 import CountryList from '../modules/Custom/Country/CountryList'
 import CityList from '../modules/Custom/City/CityList'
 import AdList from '../modules/Custom/ClassifiedAds/Adlist'
@@ -18,7 +18,7 @@ import TourList from '../modules/Custom/Tours/TourList'
 import VerifieyRequestList from '../modules/Custom/verification/VerifieyRequestList'
 import VerifiedIDList from '../modules/Custom/verification/VerifiedIDList'
 import ReviewsList from '../modules/Custom/reviews/ReviewsList'
-import ActiveEscortsList from '../modules/Custom/Escorts/ActiveEscortsList'
+import ActiveEscortsList from '../modules/Custom/Escorts/ActiveProjects'
 import InactiveEscortsList from '../modules/Custom/Escorts/InactiveEscortsList'
 import EscortVerifieyRequestList from '../modules/Custom/Escort Ads/EscortVerifieyRequestList'
 // import EscortVerifiedIDList from '../modules/Custom/Escort Ads/ActiveAdList'
@@ -33,6 +33,7 @@ import {CreateAd} from '../modules/Custom/ClassifiedAds/CreateAd'
 import PendingAdList from '../modules/Custom/ClassifiedAds/PendingAdList'
 import ReportList from '../modules/Custom/Reports/ReportList'
 import PendingReportList from '../modules/Custom/Reports/PendingReportList'
+import ActiveProjects from '../modules/Custom/Escorts/ActiveProjects'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -127,15 +128,47 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='/active-escorts'
+          path='/active-ads'
           element={
             <SuspensedView>
-              <ActiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+              <ActiveProjects className='card-xxl-stretch mb-5 mb-xl-8' />
             </SuspensedView>
           }
         />
         <Route
-          path='/inactive-escorts'
+          path='/pending-ads'
+          element={
+            <SuspensedView>
+              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/canceled-ads'
+          element={
+            <SuspensedView>
+              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/completed-ads'
+          element={
+            <SuspensedView>
+              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/not-delivered-ads'
+          element={
+            <SuspensedView>
+              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/rejected-ads'
           element={
             <SuspensedView>
               <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />

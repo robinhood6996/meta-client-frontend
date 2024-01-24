@@ -1,38 +1,24 @@
-import {userLoggedIn} from '../../auth/authSlice'
+import {objectToParam} from '../../../../helpers/objectParamsConversion'
 import {apiSlice} from '../apiSlice'
 // import {setAvailableCountries} from '../globalSearch'
 // import {setIsLoggedOut, userLoggedIn, userLoggedOut} from './authSlice'
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    userLoggedIn: builder.mutation({
+    createAd: builder.mutation({
       query: (data) => ({
-        url: '/auth/login',
+        url: '/project',
         method: 'POST',
         body: data,
       }),
-      async onQueryStarted(arg, {dispatch, queryFulfilled}) {
-        try {
-          let result = await queryFulfilled
-          console.log('result', result)
-          let data = {
-            tokens: {...result.data.tokens},
-            user: {...result.data.user},
-          }
-          dispatch(userLoggedIn(data))
-          // localStorage.setItem('authUser', JSON.stringify(data))
-        } catch (err) {
-          console.log('err', err)
-        }
-      },
-      invalidatesTags: [],
+      invalidatesTags: ['getAllAds'],
     }),
-    getAllUser: builder.query({
-      query: ({search}) => ({
-        url: `/auth/user?search=${search}`,
+    geActiveAds: builder.query({
+      query: (query) => ({
+        url: `/project?${objectToParam(query)}`,
         method: 'GET',
       }),
-      providesTags: ['getAllUser'],
+      providesTags: ['getAllAds'],
     }),
     deleteSingleUser: builder.mutation({
       query: (username) => ({
@@ -74,8 +60,8 @@ export const authApi = apiSlice.injectEndpoints({
 })
 
 export const {
-  useUserLoggedInMutation,
-  useGetAllUserQuery,
+  useCreateAdMutation,
+  useGeActiveAdsQuery,
   useDeleteSingleUserMutation,
   useUserRegistrationMutation,
 } = authApi
