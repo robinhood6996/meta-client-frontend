@@ -26,11 +26,14 @@ const ProjectFilter = ({limit}) => {
 
   const handleSearch = (e) => {
     e.preventDefault()
+    let params = queryStringToObject(search)
     const searchText = searchRef.current.value
+    if (searchText) {
+      params.search = searchText
+    }
+    let qr = objectToParam({...params})
     if (searchText?.length > 0) {
-      navigate(`/active-ads?limit=${limit}&offset=0&search=${searchText}`)
-    } else {
-      navigate(`/active-ads?limit=${limit}&offset=0`)
+      navigate(`${pathname}?${qr}`)
     }
   }
 
@@ -62,6 +65,16 @@ const ProjectFilter = ({limit}) => {
     let qr = objectToParam({...params})
     navigate(`${pathname}?${qr}`)
   }
+  // const handleStatus = (status) => {
+  //   let params = queryStringToObject(search)
+  //   if (status !== 'all') {
+  //     params.status = status
+  //   } else {
+  //     delete params.status
+  //   }
+  //   let qr = objectToParam({...params})
+  //   navigate(`${pathname}?${qr}`)
+  // }
 
   return (
     <div className='card card-xxl-stretch mb-5 mb-xl-8'>
@@ -73,6 +86,7 @@ const ProjectFilter = ({limit}) => {
       >
         <div className='row p-3'>
           <div className='col-lg-3 col-md-4 col-6'>
+            <label>Search</label>
             <input
               ref={searchRef}
               className='form-control form-control-lg form-control-solid border border-secondary'
@@ -83,6 +97,7 @@ const ProjectFilter = ({limit}) => {
           </div>
 
           <div className='col-lg-3 col-md-4 col-6'>
+            <label>Date Filter</label>
             <Flatpickr
               ref={dateRef}
               value={dateState.date}
@@ -106,6 +121,7 @@ const ProjectFilter = ({limit}) => {
             )}
           </div>
           <div className='col-lg-3 col-md-4 col-6'>
+            <label>Period</label>
             <select
               className='form-select form-select-sm form-select-solid'
               data-control='select2'
@@ -117,6 +133,25 @@ const ProjectFilter = ({limit}) => {
               <option value={true}>This Month</option>
             </select>
           </div>
+          {/* Note::This is only for admin */}
+
+          {/* <div className='col-lg-2 col-md-4 col-6'>
+            <label>Status</label>
+            <select
+              className='form-select form-select-sm form-select-solid'
+              data-control='select2'
+              data-placeholder='Latest'
+              data-hide-search='true'
+              onChange={(e) => handleStatus(e.target.value)}
+            >
+              <option value={'all'}>All</option>
+              <option value={'active'}>Active</option>
+              <option value={'pending'}>Pending</option>
+              <option value={'reject'}>Reject</option>
+              <option value={'pause'}>Paused</option>
+              <option value={'not-delivered'}>Not Delivered</option>
+            </select>
+          </div> */}
           <div className='col-lg-1 col-md-4 col-6'>
             <Button
               type='submit'

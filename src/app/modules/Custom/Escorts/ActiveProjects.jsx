@@ -61,6 +61,7 @@ const ActiveProjects = ({className}) => {
       setQuery(queryStringToObject(search))
     }
   }, [search, navigate, limit])
+
   // useEffect(() => {
   //   let params = queryStringToObject(search)
   //   if (dateState.date1 && dateState.date2 && dateState.date2 !== 'NaN-NaN-NaN') {
