@@ -5,11 +5,11 @@ import {objectToParam, queryStringToObject} from '../../../../helpers/objectPara
 type PropsType = {
   limit: number
   page: number
-  totalPage: number
+  totalCount: number
   dataLength: number
 }
 
-const PaginationUrlQuery = ({limit, page, totalPage, dataLength}: PropsType) => {
+const PaginationUrlQuery = ({limit, page, totalCount, dataLength}: PropsType) => {
   const [query, setQuery] = useState({})
   const {pathname, search} = useLocation()
   const offsetRef: any = React.useRef<HTMLInputElement>(null)
@@ -94,7 +94,7 @@ const PaginationUrlQuery = ({limit, page, totalPage, dataLength}: PropsType) => 
               min={1}
               ref={offsetRef}
               key={page}
-              max={totalPage}
+              max={Math.ceil(totalCount / limit)}
               style={{width: 70}}
               defaultValue={page}
             />

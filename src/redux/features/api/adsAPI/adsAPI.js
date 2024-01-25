@@ -13,6 +13,14 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['getAllAds'],
     }),
+    EditAd: builder.mutation({
+      query: ({projectId, data}) => ({
+        url: `/project/${projectId}`,
+        method: 'PATCH',
+        body: {...data},
+      }),
+      invalidatesTags: ['getAllAds'],
+    }),
     geActiveAds: builder.query({
       query: (query) => ({
         url: `/project?${objectToParam(query)}`,
@@ -62,6 +70,7 @@ export const authApi = apiSlice.injectEndpoints({
 export const {
   useCreateAdMutation,
   useGeActiveAdsQuery,
+  useEditAdMutation,
   useDeleteSingleUserMutation,
   useUserRegistrationMutation,
 } = authApi

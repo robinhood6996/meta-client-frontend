@@ -404,7 +404,7 @@ const AreaList: React.FC<Props> = ({className}) => {
         <PaginationUrlQuery
           limit={limit}
           page={page}
-          totalPage={Math.ceil(parseInt(data?.totalCount) / limit)}
+          totalCount={Math.ceil(parseInt(data?.totalCount) / limit)}
           dataLength={data?.cities?.length}
         />
       )}

@@ -9,17 +9,17 @@ import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import Categories from '../modules/Categories/Categories'
 import UserList from '../modules/Custom/Users/UserList'
-import EscortList from '../modules/Custom/Escorts/ActiveProjects'
+import EscortList from '../modules/Custom/Ads/ActiveProjects'
 import CountryList from '../modules/Custom/Country/CountryList'
 import CityList from '../modules/Custom/City/CityList'
 import AdList from '../modules/Custom/ClassifiedAds/Adlist'
-import EscortDetails from '../modules/Custom/Escorts/EscortDetails'
+import EscortDetails from '../modules/Custom/Ads/EscortDetails'
 import TourList from '../modules/Custom/Tours/TourList'
 import VerifieyRequestList from '../modules/Custom/verification/VerifieyRequestList'
 import VerifiedIDList from '../modules/Custom/verification/VerifiedIDList'
 import ReviewsList from '../modules/Custom/reviews/ReviewsList'
-import ActiveEscortsList from '../modules/Custom/Escorts/ActiveProjects'
-import InactiveEscortsList from '../modules/Custom/Escorts/InactiveEscortsList'
+import ActiveEscortsList from '../modules/Custom/Ads/ActiveProjects'
+import InactiveEscortsList from '../modules/Custom/Ads/InactiveEscortsList'
 import EscortVerifieyRequestList from '../modules/Custom/Escort Ads/EscortVerifieyRequestList'
 // import EscortVerifiedIDList from '../modules/Custom/Escort Ads/ActiveAdList'
 import EscortExpiredAdsList from '../modules/Custom/Escort Ads/EscortExpiredAdsList'
@@ -33,7 +33,12 @@ import {CreateAd} from '../modules/Custom/ClassifiedAds/CreateAd'
 import PendingAdList from '../modules/Custom/ClassifiedAds/PendingAdList'
 import ReportList from '../modules/Custom/Reports/ReportList'
 import PendingReportList from '../modules/Custom/Reports/PendingReportList'
-import ActiveProjects from '../modules/Custom/Escorts/ActiveProjects'
+import ActiveProjects from '../modules/Custom/Ads/ActiveProjects'
+import PendingProjects from '../modules/Custom/Ads/PendingProjects'
+import CanceledProjects from '../modules/Custom/Ads/CanceledProjects'
+import CompletedProjects from '../modules/Custom/Ads/CompleteProjects'
+import NotDeliveredProjects from '../modules/Custom/Ads/NotDeliveredProjects'
+import RejectedProjects from '../modules/Custom/Ads/RejectedProjects'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -139,7 +144,7 @@ const PrivateRoutes = () => {
           path='/pending-ads'
           element={
             <SuspensedView>
-              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+              <PendingProjects className='card-xxl-stretch mb-5 mb-xl-8' />
             </SuspensedView>
           }
         />
@@ -147,7 +152,7 @@ const PrivateRoutes = () => {
           path='/canceled-ads'
           element={
             <SuspensedView>
-              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+              <CanceledProjects className='card-xxl-stretch mb-5 mb-xl-8' />
             </SuspensedView>
           }
         />
@@ -155,7 +160,7 @@ const PrivateRoutes = () => {
           path='/completed-ads'
           element={
             <SuspensedView>
-              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+              <CompletedProjects className='card-xxl-stretch mb-5 mb-xl-8' />
             </SuspensedView>
           }
         />
@@ -163,7 +168,7 @@ const PrivateRoutes = () => {
           path='/not-delivered-ads'
           element={
             <SuspensedView>
-              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+              <NotDeliveredProjects className='card-xxl-stretch mb-5 mb-xl-8' />
             </SuspensedView>
           }
         />
@@ -171,7 +176,7 @@ const PrivateRoutes = () => {
           path='/rejected-ads'
           element={
             <SuspensedView>
-              <InactiveEscortsList className='card-xxl-stretch mb-5 mb-xl-8' />
+              <RejectedProjects className='card-xxl-stretch mb-5 mb-xl-8' />
             </SuspensedView>
           }
         />

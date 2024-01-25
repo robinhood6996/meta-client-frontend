@@ -1,8 +1,9 @@
-import React, {useEffect, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {Button, Modal} from 'react-bootstrap'
 import {KTSVG} from '../../../../_metronic/helpers'
-import {useCreateAdMutation} from '../../../../redux/features/api/adsAPI/adsAPI'
+import {useCreateAdMutation, useEditAdMutation} from '../../../../redux/features/api/adsAPI/adsAPI'
 import {toast} from 'react-toastify'
+import {useSelector} from 'react-redux'
 
 // type Props = {
 //   show: boolean
@@ -10,39 +11,39 @@ import {toast} from 'react-toastify'
 //   type: string
 // }
 
-export default function CreateProject({
-  show,
-  handleClose,
-  type,
-  cityId,
-  defaultCountryName,
-  defaultCityName,
-  defaultDescription,
-}) {
+export default function EditAd({adData}) {
   const titleRef = useRef()
   const linkRef = useRef()
-  const descriptionRef = useRef()
   const budgetRef = useRef()
   const durationRef = useRef()
-
+  const spentRef = useRef()
+  const statusRef = useRef()
+  const [showModal, setShowModal] = useState(false)
+  const handleEditModal = () => {
+    setShowModal(!showModal)
+  }
+  const currentUser = useSelector((state) => state?.adminUser)
   //api call
   //   const {data, isFetching, isSuccess} = useGetAllCountryQuery(null)
-  const [
-    createAd,
-    {isLoading: isLoadingCreate, isError: isErrorCreate, isSuccess: isSuccessCreate},
-  ] = useCreateAdMutation()
+  const [editAd, {isLoading: isLoadingCreate, isError: isErrorCreate, isSuccess: isSuccessCreate}] =
+    useEditAdMutation()
   //   const [editCity, {isLoading: isLoadingEdit, isError: isErrorEdit, isSuccess: isSuccessEdit}] =
   //     useEditCityMutation()
-
+  console.log('adData', adData)
   const handleModal = (e) => {
     e.preventDefault()
     const title = titleRef.current.value
     const link = linkRef.current.value
     const budget = budgetRef.current.value
     const duration = durationRef.current.value
-    const description = descriptionRef.current.value
-    if (type === 'create' && title && link && budget && duration) {
-      createAd({title, link, budget, duration, description})
+    const status = statusRef.current.value
+    const spentAmount = spentRef.current.value
+    if (title && link && budget && duration) {
+      if (status === 'default') {
+        editAd({projectId: adData?._id, data: {title, link, budget, duration, spentAmount}})
+      } else {
+        editAd({projectId: adData?._id, data: {title, link, budget, duration, status, spentAmount}})
+      }
     }
     //   if (
     //     type === 'edit-city' &&
@@ -57,7 +58,7 @@ export default function CreateProject({
     //       editCity({id: cityId, cityName: cityName, description: description ?? defaultDescription})
     //     console.log('edit', cityId, countryName, cityName)
     //   }
-    handleClose()
+    handleEditModal()
   }
 
   //toast create city
@@ -99,18 +100,27 @@ export default function CreateProject({
 
   return (
     <div>
+      <button
+        className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+        onClick={() => {
+          // setDeleteEscortUserName(escort?.username)
+          handleEditModal()
+        }}
+      >
+        Edit
+      </button>
       <Modal
         id='kt_modal_create_app'
         tabIndex={-1}
         aria-hidden='true'
         dialogClassName='modal-dialog modal-dialog-centered mw-900px'
-        show={show}
-        onHide={handleClose}
+        show={showModal}
+        onHide={handleEditModal}
       >
         <div className='modal-header'>
-          <h2>{type === 'create' ? 'Create Ad' : 'Edit Ad'}</h2>
+          <h2>{'Edit Ad'}</h2>
           {/* begin::Close */}
-          <div className='btn btn-sm btn-icon btn-active-color-primary' onClick={handleClose}>
+          <div className='btn btn-sm btn-icon btn-active-color-primary' onClick={handleEditModal}>
             <KTSVG className='svg-icon-1' path='/media/icons/duotune/arrows/arr061.svg' />
           </div>
           {/* end::Close */}
@@ -136,7 +146,7 @@ export default function CreateProject({
                 className='form-control form-control-lg form-control-solid'
                 name='ad-title'
                 placeholder='Title'
-                defaultValue={type === 'edit' ? defaultCityName : ''}
+                defaultValue={adData?.title}
                 ref={titleRef}
               />
             </div>
@@ -155,26 +165,8 @@ export default function CreateProject({
                 className='form-control form-control-lg form-control-solid'
                 name='ad-title'
                 placeholder='Ex: https://facebook.com/post/123'
-                defaultValue={type === 'edit-city' ? defaultCityName : ''}
+                defaultValue={adData?.link}
               />
-            </div>
-            <div className='fv-row mb-10'>
-              <label className='d-flex align-items-center fs-5 fw-semibold mb-2'>
-                <span className='required'>Description</span>
-                <i
-                  className='fas fa-exclamation-circle ms-2 fs-7'
-                  data-bs-toggle='tooltip'
-                  title='Link of the post which you want to advertise'
-                ></i>
-              </label>
-              <textarea
-                className='form-control form-control-lg form-control-solid'
-                ref={descriptionRef}
-                name=''
-                id=''
-                cols='30'
-                rows='10'
-              ></textarea>
             </div>
             <div className='fv-row mb-10'>
               <label className='d-flex align-items-center fs-5 fw-semibold mb-2'>
@@ -191,7 +183,7 @@ export default function CreateProject({
                 className='form-control form-control-lg form-control-solid'
                 name='ad-title'
                 placeholder='Budget in USD'
-                defaultValue={type === 'edit-city' ? defaultCityName : ''}
+                defaultValue={adData?.budget}
               />
             </div>
             <div className='fv-row mb-10'>
@@ -209,9 +201,49 @@ export default function CreateProject({
                 className='form-control form-control-lg form-control-solid'
                 name='ad-title'
                 placeholder='Duration in days'
-                defaultValue={type === 'edit-city' ? defaultCityName : ''}
+                defaultValue={adData?.duration}
               />
             </div>
+            {currentUser?.user?.role === 'user' && (
+              <>
+                <div className='fv-row mb-10'>
+                  <label className='d-flex align-items-center fs-5 fw-semibold mb-2'>
+                    <span className='required'>Spent Amount</span>
+                    <i
+                      className='fas fa-exclamation-circle ms-2 fs-7'
+                      data-bs-toggle='tooltip'
+                      title='Link of the post which you want to advertise'
+                    ></i>
+                  </label>
+                  <input
+                    ref={spentRef}
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    name='ad-title'
+                    placeholder='Budget in USD'
+                    defaultValue={adData?.spentAmount ?? 0}
+                  />
+                </div>
+
+                <div className='fv-row mb-10'>
+                  <label>Status</label>
+                  <select
+                    ref={statusRef}
+                    className='form-select form-select-sm form-select-solid'
+                    data-control='select2'
+                    data-placeholder='Latest'
+                    data-hide-search='true'
+                    onChange={(e) => console.log(e.target.value)}
+                  >
+                    <option value={'default'}>Status</option>
+                    <option value={'active'}>Active</option>
+                    <option value={'pending'}>Pending</option>
+                    <option value={'reject'}>Reject</option>
+                    <option value={'not-delivered'}>Not Delivered</option>
+                  </select>
+                </div>
+              </>
+            )}
             <div className='d-flex justify-content-end mb-2'>
               <Button
                 className='btn btn-sm fw-bold btn-primary'

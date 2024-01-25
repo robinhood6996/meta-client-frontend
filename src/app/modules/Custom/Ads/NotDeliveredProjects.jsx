@@ -16,7 +16,8 @@ import CreateProject from '../../../Components/Custom Components/common/CreateAd
 import DeleteModal from '../Common/DeleteModal'
 import PaginationUrlQuery from '../../../Components/Custom Components/common/PaginationUrlQuery'
 import ProjectFilter from '../../../Components/Custom Components/common/ProjectFilter'
-const ActiveProjects = ({className}) => {
+import EditAd from '../../../Components/Custom Components/common/EditAd'
+const NotDeliveredProjects = ({className}) => {
   const [deleteEscortUserName, setDeleteEscortUserName] = useState('')
   const [deleteModal, setDeleteModal] = useState(false)
   const [page, setPage] = useState(1)
@@ -44,7 +45,7 @@ const ActiveProjects = ({className}) => {
   //Update page and from url and update url if empty
   useEffect(() => {
     if (!search) {
-      navigate(`/active-ads?limit=${limit}&offset=0`)
+      navigate(`/not-delivered-ads?limit=${limit}&offset=0&status=not-delivered`)
     } else {
       let params = queryStringToObject(search)
       const offset = parseInt(params.offset)
@@ -171,6 +172,7 @@ const ActiveProjects = ({className}) => {
                   <th className='min-w-150px'>Serial</th>
                   <th className='min-w-150px'>Name</th>
                   <th className='min-w-150px'>Link</th>
+                  <th className='min-w-150px'>Desc.</th>
                   <th className='min-w-150px'>Budget</th>
                   <th className='min-w-140px'>Duration</th>
                   <th className='min-w-120px'>Spent</th>
@@ -182,7 +184,7 @@ const ActiveProjects = ({className}) => {
               {/* end::Table head */}
               {/* begin::Table body */}
               <tbody>
-                {data?.map((ad, index) => {
+                {data?.projects?.map((ad, index) => {
                   return (
                     <>
                       <tr key={index}>
@@ -206,6 +208,15 @@ const ActiveProjects = ({className}) => {
                           <a href='/' className='text-dark fw-bold text-hover-primary d-block fs-6'>
                             {ad?.link}
                           </a>
+                        </td>
+                        <td className='text-start'>
+                          <div className='d-flex flex-column w-100 me-2'>
+                            <div className='d-flex flex-stack mb-2'>
+                              <span className='text-muted me-2 fs-7 fw-semibold'>
+                                {ad?.description}
+                              </span>
+                            </div>
+                          </div>
                         </td>
                         <td className='text-end'>
                           <div className='d-flex flex-column w-100 me-2'>
@@ -271,7 +282,8 @@ const ActiveProjects = ({className}) => {
                           </div>
                         </td>
                         <td>
-                          <div className='d-flex justify-content-end flex-shrink-0'>
+                          <div className='d-flex justify-content-end gap-2 flex-shrink-0'>
+                            <EditAd adData={ad} />
                             <button
                               className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
                               onClick={() => {
@@ -297,7 +309,12 @@ const ActiveProjects = ({className}) => {
           </div>
           {/* end::Table container */}
           <div className='mt-2'>
-            <PaginationUrlQuery limit={limit} page={page} />
+            <PaginationUrlQuery
+              limit={limit}
+              page={page}
+              dataLength={data?.meta?.resultCount}
+              totalCount={data?.meta?.totalCount}
+            />
           </div>
         </div>
         <DeleteModal
@@ -312,4 +329,4 @@ const ActiveProjects = ({className}) => {
   )
 }
 
-export default ActiveProjects
+export default NotDeliveredProjects

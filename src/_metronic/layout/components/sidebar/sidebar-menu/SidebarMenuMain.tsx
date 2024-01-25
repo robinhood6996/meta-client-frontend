@@ -57,6 +57,16 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem to='/not-delivered-ads' title='Not Delivered' hasBullet={true} />
         <SidebarMenuItem to='/rejected-ads' title='Rejected' hasBullet={true} />
       </SidebarMenuItemWithSub>
+      <SidebarMenuItemWithSub
+        to='/payments'
+        title='Payments'
+        hasBullet={false}
+        icon='/media/icons/duotune/general/gen022.svg'
+      >
+        <SidebarMenuItem to='/payments' title='Active Ads' hasBullet={true} />
+        <SidebarMenuItem to='/pending-payments' title='Pending Payments' hasBullet={true} />
+        <SidebarMenuItem to='/canceled-payments' title='Canceled Payments' hasBullet={true} />
+      </SidebarMenuItemWithSub>
       {/* <SidebarMenuItem
         to='/escorts'
         title='Escorts'
