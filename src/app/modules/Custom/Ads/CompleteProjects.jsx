@@ -16,6 +16,7 @@ import CreateProject from '../../../Components/Custom Components/common/CreateAd
 import DeleteModal from '../Common/DeleteModal'
 import PaginationUrlQuery from '../../../Components/Custom Components/common/PaginationUrlQuery'
 import ProjectFilter from '../../../Components/Custom Components/common/ProjectFilter'
+import StatusButton from '../../../Components/Custom Components/common/StatusButton'
 const CompletedProjects = ({className}) => {
   const [deleteEscortUserName, setDeleteEscortUserName] = useState('')
   const [deleteModal, setDeleteModal] = useState(false)
@@ -279,6 +280,9 @@ const CompletedProjects = ({className}) => {
                               </span>
                             </div>
                           </div>
+                        </td>
+                        <td className='text-start'>
+                          <StatusButton status={ad?.status} />
                         </td>
                         <td>
                           {/* <div className='d-flex justify-content-end flex-shrink-0'>

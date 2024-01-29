@@ -17,6 +17,7 @@ import PaginationUrlQuery from '../../../Components/Custom Components/common/Pag
 import ProjectFilter from '../../../Components/Custom Components/common/ProjectFilter'
 import DeleteModal from '../Common/DeleteModal'
 import EditAd from '../../../Components/Custom Components/common/EditAd'
+import StatusButton from '../../../Components/Custom Components/common/StatusButton'
 const RejectedProjects = ({className}) => {
   const [deleteEscortUserName, setDeleteEscortUserName] = useState('')
   const [deleteModal, setDeleteModal] = useState(false)
@@ -178,6 +179,7 @@ const RejectedProjects = ({className}) => {
                   <th className='min-w-120px'>Spent</th>
                   <th className='min-w-120px'>Spent in Tk</th>
                   <th className='min-w-120px'>Dates</th>
+                  <th className='min-w-120px'>Status</th>
                   <th className='min-w-100px text-end'>Actions</th>
                 </tr>
               </thead>
@@ -280,6 +282,9 @@ const RejectedProjects = ({className}) => {
                               </span>
                             </div>
                           </div>
+                        </td>
+                        <td className='text-start'>
+                          <StatusButton status={ad?.status} />
                         </td>
                         <td>
                           <div className='d-flex justify-content-end gap-2 flex-shrink-0'>

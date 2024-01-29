@@ -1,24 +1,27 @@
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Button} from 'react-bootstrap'
 import Moment from 'react-moment'
 import {useLocation, useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import {KTSVG} from '../../../../_metronic/helpers'
 import {queryStringToObject} from '../../../../helpers/objectParamsConversion'
-import {useGeActiveAdsQuery} from '../../../../redux/features/api/adsAPI/adsAPI'
 // import 'flatpickr/dist/themes/material_green.css'
 
 import {
   useDeleteSingleEscortMutation,
   useUpdateEscortStatusDataMutation,
 } from '../../../../redux/features/api/escorts/escortsApi'
+import {useGetPaymentsQuery} from '../../../../redux/features/api/paymentsAPI'
 import CreateProject from '../../../Components/Custom Components/common/CreateAd'
-import DeleteModal from '../Common/DeleteModal'
-import PaginationUrlQuery from '../../../Components/Custom Components/common/PaginationUrlQuery'
-import ProjectFilter from '../../../Components/Custom Components/common/ProjectFilter'
 import EditAd from '../../../Components/Custom Components/common/EditAd'
-import StatusButton from '../../../Components/Custom Components/common/StatusButton'
-const NotDeliveredProjects = ({className}) => {
+import PaginationUrlQuery from '../../../Components/Custom Components/common/PaginationUrlQuery'
+import PaymentStatus from '../../../Components/Custom Components/common/PaymentStatus'
+import ProjectFilter from '../../../Components/Custom Components/common/ProjectFilter'
+import DeleteModal from '../Common/DeleteModal'
+import Loader from '../../../Components/Custom Components/common/Loader'
+import PaymentProveButton from '../../../Components/Custom Components/common/Payment/PaymentProveButton'
+import EditPayment from '../../../Components/Custom Components/common/Payment/EditPayment'
+const CanceledPayments = ({className}) => {
   const [deleteEscortUserName, setDeleteEscortUserName] = useState('')
   const [deleteModal, setDeleteModal] = useState(false)
   const [page, setPage] = useState(1)
@@ -33,7 +36,7 @@ const NotDeliveredProjects = ({className}) => {
   }
 
   //api call
-  const {data, isFetching, isError, isSuccess} = useGeActiveAdsQuery(query, {skip: !query})
+  const {data, isFetching, isError, isSuccess} = useGetPaymentsQuery(query, {skip: !query})
   const [
     deleteEscort,
     {isLoading: isLoadingDelete, isError: isErrorDelete, isSuccess: isSuccessDelete},
@@ -46,7 +49,7 @@ const NotDeliveredProjects = ({className}) => {
   //Update page and from url and update url if empty
   useEffect(() => {
     if (!search) {
-      navigate(`/not-delivered-ads?limit=${limit}&offset=0&status=not-delivered`)
+      navigate(`/canceled-payments?limit=${limit}&offset=0&status=canceled`)
     } else {
       let params = queryStringToObject(search)
       const offset = parseInt(params.offset)
@@ -171,143 +174,132 @@ const NotDeliveredProjects = ({className}) => {
                             </div>
                           </th> */}
                   <th className='min-w-150px'>Serial</th>
-                  <th className='min-w-150px'>Name</th>
-                  <th className='min-w-150px'>Link</th>
-                  <th className='min-w-150px'>Desc.</th>
-                  <th className='min-w-150px'>Budget</th>
-                  <th className='min-w-140px'>Duration</th>
-                  <th className='min-w-120px'>Spent</th>
-                  <th className='min-w-120px'>Spent in Tk</th>
-                  <th className='min-w-120px'>Dates</th>
+                  <th className='min-w-150px'>Title</th>
+                  <th className='min-w-150px'>Payment Media</th>
+                  <th className='min-w-150px'>Payment Ref.</th>
+                  <th className='min-w-150px'>Payment Prove</th>
+                  <th className='min-w-150px'>Amount</th>
+                  <th className='min-w-140px'>Dates</th>
                   <th className='min-w-120px'>Status</th>
                   <th className='min-w-100px text-end'>Actions</th>
                 </tr>
               </thead>
               {/* end::Table head */}
               {/* begin::Table body */}
-              <tbody>
-                {data?.projects?.map((ad, index) => {
-                  return (
-                    <>
-                      <tr key={index}>
-                        <td>
-                          <span>{index + 1}</span>
-                        </td>
-                        {/* <tsole  */}
-                        <td>
-                          <div className='d-flex align-items-center'>
-                            <div className='d-flex justify-content-start flex-column'>
-                              <a href='/' className='text-dark fw-bold text-hover-primary fs-6'>
-                                {ad?.title}
-                              </a>
-                              <span className='text-muted fw-semibold text-muted d-block fs-7'>
-                                {ad?.user?.name}({ad?.user?.email})
-                              </span>
+              {isFetching ? (
+                <div className='d-flex justify-content-center'>
+                  {' '}
+                  <Loader />
+                </div>
+              ) : (
+                <tbody>
+                  {data?.map((payment, index) => {
+                    return (
+                      <>
+                        <tr key={index}>
+                          <td>
+                            <span>{index + 1}</span>
+                          </td>
+                          {/* <tsole  */}
+                          <td>
+                            <div className='d-flex align-items-center'>
+                              <div className='d-flex justify-content-start flex-column'>
+                                <a href='/' className='text-dark fw-bold text-hover-primary fs-6'>
+                                  {payment?.title}
+                                </a>
+                                <span className='text-muted fw-semibold text-muted d-block fs-7'>
+                                  {payment?.user?.name}({payment?.user?.email})
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td>
-                          <a href='/' className='text-dark fw-bold text-hover-primary d-block fs-6'>
-                            {ad?.link}
-                          </a>
-                        </td>
-                        <td className='text-start'>
-                          <div className='d-flex flex-column w-100 me-2'>
-                            <div className='d-flex flex-stack mb-2'>
-                              <span className='text-muted me-2 fs-7 fw-semibold'>
-                                {ad?.description}
-                              </span>
+                          </td>
+                          <td>
+                            <a
+                              href='/'
+                              className='text-dark fw-bold text-hover-primary d-block fs-6'
+                            >
+                              {payment?.paymentMedia}
+                            </a>
+                          </td>
+                          <td className='text-start'>
+                            <div className='d-flex flex-column w-100 me-2'>
+                              <div className='d-flex flex-stack mb-2'>
+                                <span className='text-muted me-2 fs-7 fw-semibold'>
+                                  {payment?.paymentRef}
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className='text-end'>
-                          <div className='d-flex flex-column w-100 me-2'>
-                            <div className='d-flex flex-stack mb-2'>
-                              <span className='text-muted me-2 fs-7 fw-semibold'>
-                                {ad?.budget} $
-                              </span>
+                          </td>
+                          <td className='text-start'>
+                            <div className='d-flex flex-column w-100 me-2'>
+                              <div className='d-flex flex-stack mb-2'>
+                                <PaymentProveButton url={payment?.paymentProve} />
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className='text-end'>
-                          <div className='d-flex flex-column w-100 me-2'>
-                            <div className='d-flex flex-stack mb-2'>
-                              <span className='text-muted me-2 fs-7 fw-semibold'>
-                                {ad?.duration} Days
-                              </span>
+                          </td>
+                          <td className='text-end'>
+                            <div className='d-flex flex-column w-100 me-2'>
+                              <div className='d-flex flex-stack mb-2'>
+                                <span className='text-muted me-2 fs-7 fw-semibold'>
+                                  TK. {payment?.amount}
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className='text-end'>
-                          <div className='d-flex flex-column w-100 me-2'>
-                            <div className='d-flex flex-stack mb-2'>
-                              <span className='text-muted me-2 fs-7 fw-semibold'>
-                                {ad?.spentAmount ?? 0} $
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className='text-end'>
-                          <div className='d-flex flex-column w-100 me-2'>
-                            <div className='d-flex flex-stack mb-2'>
-                              <span className='text-muted me-2 fs-7 fw-semibold'>
-                                {(ad?.spentAmount ?? 0) * 140} Tk
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className='text-end'>
-                          <div className='d-flex flex-column w-100 me-2'>
-                            <div className='d-flex flex-stack mb-2'>
-                              <span className='text-muted me-2 fs-7 fw-semibold'>
-                                Created:{' '}
-                                {ad?.createdAt && (
+                          </td>
+
+                          <td className='text-end'>
+                            <div className='d-flex flex-column w-100 me-2'>
+                              <div className='d-flex flex-stack mb-2'>
+                                <span className='text-muted me-2 fs-7 fw-semibold'>
+                                  Created:{' '}
+                                  {payment?.createdAt && (
+                                    <Moment
+                                      interval={30000}
+                                      format='DD-MM-YYYY HH:mm'
+                                      // tz='Asia/Dhaka'
+                                    >
+                                      {payment?.createdAt}
+                                    </Moment>
+                                  )}{' '}
+                                  <br />
+                                  Updated:{' '}
                                   <Moment
                                     interval={30000}
                                     format='DD-MM-YYYY HH:mm'
                                     // tz='Asia/Dhaka'
                                   >
-                                    {ad?.createdAt}
+                                    {payment?.updatedAt}
                                   </Moment>
-                                )}{' '}
-                                <br />
-                                Updated:{' '}
-                                <Moment
-                                  interval={30000}
-                                  format='DD-MM-YYYY HH:mm'
-                                  // tz='Asia/Dhaka'
-                                >
-                                  {ad?.updatedAt}
-                                </Moment>
-                              </span>
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className='text-start'>
-                          <StatusButton status={ad?.status} />
-                        </td>
-                        <td>
-                          <div className='d-flex justify-content-end gap-2 flex-shrink-0'>
-                            <EditAd adData={ad} />
-                            <button
-                              className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
-                              onClick={() => {
-                                // setDeleteEscortUserName(escort?.username)
-                                handleDeleteModal()
-                              }}
-                            >
-                              <KTSVG
-                                path='/media/icons/duotune/general/gen027.svg'
-                                className='svg-icon-3'
-                              />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  )
-                })}
-              </tbody>
+                          </td>
+                          <td className='text-end'>
+                            <PaymentStatus status={payment?.status} />
+                          </td>
+                          <td>
+                            <div className='d-flex justify-content-end gap-2 flex-shrink-0'>
+                              <EditPayment defaultPayment={payment} />
+                              <button
+                                className='btn btn-icon btn-bg-light btn-active-color-primary btn-sm'
+                                onClick={() => {
+                                  // setDeleteEscortUserName(escort?.username)
+                                  handleDeleteModal()
+                                }}
+                              >
+                                <KTSVG
+                                  path='/media/icons/duotune/general/gen027.svg'
+                                  className='svg-icon-3'
+                                />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </>
+                    )
+                  })}
+                </tbody>
+              )}
               {/* end::Table body */}
             </table>
             {/* end::Table */}
@@ -334,4 +326,4 @@ const NotDeliveredProjects = ({className}) => {
   )
 }
 
-export default NotDeliveredProjects
+export default CanceledPayments

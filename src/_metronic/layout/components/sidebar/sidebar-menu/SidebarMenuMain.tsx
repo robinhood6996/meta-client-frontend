@@ -52,7 +52,7 @@ const SidebarMenuMain = () => {
       >
         <SidebarMenuItem to='/active-ads' title='Active Ads' hasBullet={true} />
         <SidebarMenuItem to='/pending-ads' title='Pending Ads' hasBullet={true} />
-        <SidebarMenuItem to='/canceled-ads' title='Canceled Ads' hasBullet={true} />
+        {/* <SidebarMenuItem to='/canceled-ads' title='Canceled Ads' hasBullet={true} /> */}
         <SidebarMenuItem to='/completed-ads' title='Completed Ads' hasBullet={true} />
         <SidebarMenuItem to='/not-delivered-ads' title='Not Delivered' hasBullet={true} />
         <SidebarMenuItem to='/rejected-ads' title='Rejected' hasBullet={true} />
@@ -63,7 +63,7 @@ const SidebarMenuMain = () => {
         hasBullet={false}
         icon='/media/icons/duotune/general/gen022.svg'
       >
-        <SidebarMenuItem to='/payments' title='Active Ads' hasBullet={true} />
+        <SidebarMenuItem to='/approved-payments' title='Approved Payments' hasBullet={true} />
         <SidebarMenuItem to='/pending-payments' title='Pending Payments' hasBullet={true} />
         <SidebarMenuItem to='/canceled-payments' title='Canceled Payments' hasBullet={true} />
       </SidebarMenuItemWithSub>

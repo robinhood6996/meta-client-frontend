@@ -39,6 +39,9 @@ import CanceledProjects from '../modules/Custom/Ads/CanceledProjects'
 import CompletedProjects from '../modules/Custom/Ads/CompleteProjects'
 import NotDeliveredProjects from '../modules/Custom/Ads/NotDeliveredProjects'
 import RejectedProjects from '../modules/Custom/Ads/RejectedProjects'
+import ApprovedPayments from '../modules/Custom/Payments/ApprovedPayments'
+import PendingPayments from '../modules/Custom/Payments/PendingPayment'
+import CanceledPayments from '../modules/Custom/Payments/CanceledPayments'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -177,6 +180,30 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <RejectedProjects className='card-xxl-stretch mb-5 mb-xl-8' />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/approved-payments'
+          element={
+            <SuspensedView>
+              <ApprovedPayments className='card-xxl-stretch mb-5 mb-xl-8' />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/pending-payments'
+          element={
+            <SuspensedView>
+              <PendingPayments className='card-xxl-stretch mb-5 mb-xl-8' />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='/canceled-payments'
+          element={
+            <SuspensedView>
+              <CanceledPayments className='card-xxl-stretch mb-5 mb-xl-8' />
             </SuspensedView>
           }
         />
