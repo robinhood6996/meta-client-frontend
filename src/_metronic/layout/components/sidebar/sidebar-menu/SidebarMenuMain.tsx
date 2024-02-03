@@ -63,7 +63,7 @@ const SidebarMenuMain = () => {
         hasBullet={false}
         icon='/media/icons/duotune/general/gen022.svg'
       >
-        <SidebarMenuItem to='/approved-payments' title='Approved Payments' hasBullet={true} />
+        <SidebarMenuItem to='/approved-payments' title='Verified Payments' hasBullet={true} />
         <SidebarMenuItem to='/pending-payments' title='Pending Payments' hasBullet={true} />
         <SidebarMenuItem to='/canceled-payments' title='Canceled Payments' hasBullet={true} />
       </SidebarMenuItemWithSub>

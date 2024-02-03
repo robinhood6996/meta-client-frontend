@@ -2,7 +2,10 @@ import React, {useEffect, useRef} from 'react'
 import {Button, Modal} from 'react-bootstrap'
 import {toast} from 'react-toastify'
 import {KTSVG} from '../../../../../_metronic/helpers'
-import {useCreateAdMutation} from '../../../../../redux/features/api/paymentsAPI'
+import {
+  useCreateAdMutation,
+  useCreatePaymentMutation,
+} from '../../../../../redux/features/api/paymentsAPI'
 
 // type Props = {
 //   show: boolean
@@ -21,42 +24,29 @@ export default function CreatePayment({
 }) {
   const titleRef = useRef()
   const mediaRef = useRef()
-  const descriptionRef = useRef()
+  const paymentRef = useRef()
   const amountRef = useRef()
-  const durationRef = useRef()
+  const proveRef = useRef()
 
   //api call
   //   const {data, isFetching, isSuccess} = useGetAllCountryQuery(null)
   const [
-    createAd,
+    createPayment,
     {isLoading: isLoadingCreate, isError: isErrorCreate, isSuccess: isSuccessCreate},
-  ] = useCreateAdMutation()
+  ] = useCreatePaymentMutation()
   //   const [editCity, {isLoading: isLoadingEdit, isError: isErrorEdit, isSuccess: isSuccessEdit}] =
   //     useEditCityMutation()
 
   const handleModal = (e) => {
     e.preventDefault()
     const title = titleRef.current.value
-    const media = mediaRef.current.value
-    const budget = amountRef.current.value
-    const duration = durationRef.current.value
-    const description = descriptionRef.current.value
-    if (type === 'create' && title && media && budget && duration) {
-      createAd({title, media, budget, duration, description})
+    const paymentMedia = mediaRef.current.value
+    const reference = paymentRef.current.value
+    const amount = amountRef.current.value
+    if (title && paymentMedia && amount && reference) {
+      createPayment({})
     }
-    //   if (
-    //     type === 'edit-city' &&
-    //     (countryName !== null ||
-    //       countryName !== '' ||
-    //       countryName !== undefined ||
-    //       cityName !== null ||
-    //       cityName !== '' ||
-    //       cityName !== undefined) &&
-    //     cityId
-    //   ) {
-    //       editCity({id: cityId, cityName: cityName, description: description ?? defaultDescription})
-    //     console.log('edit', cityId, countryName, cityName)
-    //   }
+
     handleClose()
   }
 
@@ -148,7 +138,7 @@ export default function CreatePayment({
                   title='Which payment method you are using'
                 ></i>
               </label>
-              <select className='form-control form-control-lg form-control-solid'>
+              <select className='form-control form-control-lg form-control-solid' ref={mediaRef}>
                 <option value='default'>Select Payment Method</option>
                 <option value='bkash'>Bkash</option>
                 <option value='nagad'>Nagad</option>
@@ -165,28 +155,11 @@ export default function CreatePayment({
                 ></i>
               </label>
               <input
-                ref={mediaRef}
+                ref={paymentRef}
                 type='text'
                 className='form-control form-control-lg form-control-solid'
                 name='ad-title'
                 placeholder='Bkash/Nagad Number or Bank Account'
-              />
-            </div>
-            <div className='fv-row mb-10'>
-              <label className='d-flex align-items-center fs-5 fw-semibold mb-2'>
-                <span className='required'>Pay Amount</span>
-                <i
-                  className='fas fa-exclamation-circle ms-2 fs-7'
-                  data-bs-toggle='tooltip'
-                  title='Payable Amount'
-                ></i>
-              </label>
-              <input
-                ref={amountRef}
-                type='number'
-                className='form-control form-control-lg form-control-solid'
-                name='ad-title'
-                placeholder='Amount in BDT'
               />
             </div>
             <div className='fv-row mb-10'>
@@ -216,7 +189,7 @@ export default function CreatePayment({
                 ></i>
               </label>
               <input
-                ref={amountRef}
+                ref={proveRef}
                 type='file'
                 className='form-control form-control-lg form-control-solid'
                 name='ad-title'

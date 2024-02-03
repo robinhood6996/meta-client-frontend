@@ -14,11 +14,11 @@ const Footer = () => {
           {new Date().getFullYear().toString()}&copy;
         </span>
         <a
-          href='https://incontriesc.com/'
+          href='https://brighbraininfotech.com/'
           target='_blank'
           className='text-gray-800 text-hover-primary'
         >
-          incontriesc
+          Brightbrain Infotech
         </a>
       </div>
 

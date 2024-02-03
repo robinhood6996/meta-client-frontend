@@ -8,9 +8,6 @@ export function MenuInner() {
   return (
     <>
       <MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
-      <MenuItem title='Escorts' to='/active-escorts' />
-      <MenuItem title='Tours' to='/tours' />
-      <MenuItem title='Verification' to='/active-verification' />
     </>
   )
 }

@@ -28,6 +28,13 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       providesTags: ['getAllAds'],
     }),
+    geAdState: builder.query({
+      query: () => ({
+        url: `/project/get-stats`,
+        method: 'GET',
+      }),
+      providesTags: ['getAdStats'],
+    }),
     deleteSingleUser: builder.mutation({
       query: (username) => ({
         url: `/auth/delete-user?username=${username}`,
@@ -73,4 +80,5 @@ export const {
   useEditAdMutation,
   useDeleteSingleUserMutation,
   useUserRegistrationMutation,
+  useGeAdStateQuery,
 } = authApi

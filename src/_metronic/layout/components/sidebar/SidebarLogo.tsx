@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 import clsx from 'clsx'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {useLayout} from '../../core'
-import Logo from '../../../../_metronic/assets/images/logoinc.png'
+import Logo from '../../../../_metronic/assets/images/Logo.png'
 const SidebarLogo = () => {
   const {config} = useLayout()
   const appSidebarDefaultMinimizeDesktopEnabled =
@@ -21,18 +21,18 @@ const SidebarLogo = () => {
     <div className='app-sidebar-logo px-6' id='kt_app_sidebar_logo'>
       <Link to='/dashboard'>
         {config.layoutType === 'dark-sidebar' ? (
-          <img alt='Logo' src={Logo} className='h-25px app-sidebar-logo-default' />
+          <img alt='Logo' src={Logo} className='h-50px app-sidebar-logo-default' />
         ) : (
           <>
             <img
               alt='Logo'
               src={Logo}
-              className='h-25px app-sidebar-logo-default theme-light-show'
+              className='h-50px app-sidebar-logo-default theme-light-show'
             />
             <img
               alt='Logo'
               src={Logo}
-              className='h-25px app-sidebar-logo-default theme-dark-show'
+              className='h-50px app-sidebar-logo-default theme-dark-show'
             />
           </>
         )}

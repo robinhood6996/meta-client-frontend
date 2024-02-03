@@ -12,9 +12,9 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       providesTags: ['getPayments'],
     }),
-    createAd: builder.mutation({
+    createPayment: builder.mutation({
       query: (data) => ({
-        url: '/project',
+        url: '/payments',
         method: 'POST',
         body: data,
       }),
@@ -40,7 +40,7 @@ export const authApi = apiSlice.injectEndpoints({
 
 export const {
   useGetPaymentsQuery,
-  useCreateAdMutation,
+  useCreatePaymentMutation,
   useEditPaymentMutation,
   useDeletePaymentMutation,
 } = authApi

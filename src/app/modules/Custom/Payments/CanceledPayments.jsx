@@ -193,7 +193,7 @@ const CanceledPayments = ({className}) => {
                 </div>
               ) : (
                 <tbody>
-                  {data?.map((payment, index) => {
+                  {data?.payments?.map((payment, index) => {
                     return (
                       <>
                         <tr key={index}>
