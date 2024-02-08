@@ -3,7 +3,7 @@ import {apiSlice} from '../apiSlice'
 // import {setAvailableCountries} from '../globalSearch'
 // import {setIsLoggedOut, userLoggedIn, userLoggedOut} from './authSlice'
 
-export const authApi = apiSlice.injectEndpoints({
+export const paymentApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPayments: builder.query({
       query: (query) => ({
@@ -43,4 +43,4 @@ export const {
   useCreatePaymentMutation,
   useEditPaymentMutation,
   useDeletePaymentMutation,
-} = authApi
+} = paymentApi

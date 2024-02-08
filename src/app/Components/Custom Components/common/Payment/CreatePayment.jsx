@@ -1,11 +1,8 @@
-import React, {useEffect, useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import {Button, Modal} from 'react-bootstrap'
 import {toast} from 'react-toastify'
 import {KTSVG} from '../../../../../_metronic/helpers'
-import {
-  useCreateAdMutation,
-  useCreatePaymentMutation,
-} from '../../../../../redux/features/api/paymentsAPI'
+import {useCreatePaymentMutation} from '../../../../../redux/features/api/paymentsAPI'
 
 // type Props = {
 //   show: boolean
@@ -13,15 +10,7 @@ import {
 //   type: string
 // }
 
-export default function CreatePayment({
-  show,
-  handleClose,
-  type,
-  cityId,
-  defaultCountryName,
-  defaultCityName,
-  defaultDescription,
-}) {
+export default function CreatePayment({show, handleClose}) {
   const titleRef = useRef()
   const mediaRef = useRef()
   const paymentRef = useRef()
@@ -31,7 +20,7 @@ export default function CreatePayment({
   //api call
   //   const {data, isFetching, isSuccess} = useGetAllCountryQuery(null)
   const [
-    createPayment,
+    createPaymentReq,
     {isLoading: isLoadingCreate, isError: isErrorCreate, isSuccess: isSuccessCreate},
   ] = useCreatePaymentMutation()
   //   const [editCity, {isLoading: isLoadingEdit, isError: isErrorEdit, isSuccess: isSuccessEdit}] =
@@ -43,11 +32,13 @@ export default function CreatePayment({
     const paymentMedia = mediaRef.current.value
     const reference = paymentRef.current.value
     const amount = amountRef.current.value
-    if (title && paymentMedia && amount && reference) {
-      createPayment({})
+    // const paymentProve = proveRef.current.files[0]
+    if (paymentMedia && amount && reference) {
+      // createPaymentReq({title, paymentMedia, paymentRef, amount})
+      console.log('values', title, paymentMedia, reference, amount)
     }
 
-    handleClose()
+    // handleClose()
   }
 
   //toast create city
